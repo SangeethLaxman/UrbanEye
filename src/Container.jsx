@@ -1,17 +1,16 @@
 import { useState } from 'react'
-
 import './Container.css'
 
 function Container() {
-    return (
+
+
+  return (
     <>
-      <div class="main-container">
-        hi
-      </div>
+        <div class="root-container">
+            <p>hi</p>
+        </div>
     </>
   )
 }
 
-
-
-export default App
+export default Container
