@@ -1,0 +1,52 @@
+html, body {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#all {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+button {
+  font-size:15px
+}
+
+ #camText {
+  
+  margin-right: 10px;
+}
+
+
+#cambounds,#imageCanvas {
+  height: 400px;
+  width: 400px;
+  border: 10px solid aqua;
+  border-radius: 15px;
+  margin:15px
+}
+
+#indexElement {
+  font-size: large;
+  font-weight: 400;
+  margin:0
+}
+
+
+.indexButton {
+  height: 40px;
+  width:40px
+}
+
+#camControls, #imgStuff {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}

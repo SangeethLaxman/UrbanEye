@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <div id="all">
+
+      <div id="cambounds">
+        <div hidden id="videoCanvas"></div>
+      </div>
+
+      <div id="camControls">
+        <button onClick="take()" id="cameraButton" disabled>Take Photo</button>
+        <input type="checkbox" onclick="toggleCamera()" id="cameraCheckbox">
+        <p id="camText">Toggle Camera</p>
+        <!-- <input type="file" id="uploadButton" accept=".jpg, .png" changed=""></input> -->
+      </div>
+      <p id = "indexElement">Index: 0</p>
+      <div id="imgStuff">
+        <button onClick="moveIndex(-1)" class="indexButton"> &lt;&lt; </button>
+          <div id="imageCanvas"></div>  
+        <button onClick="moveIndex(1)" class="indexButton"> &gt;&gt; </button>
+      </div>
+
+      
+
+    </div>
+    <script src="sketch.js"></script>
+  </body>
+</html>
