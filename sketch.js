@@ -121,18 +121,24 @@ function handleUpload(file) {
 }
 
 function setup() {
+  let details = navigator.userAgent;
+  let regexp = /android|iphone|kindle|ipad/i; //create a regex for common terms used in mobile names
+  let isMobileDevice = regexp.test(details); //check whether the userAgent is on mobile
 
-  var constraints = {
+  var constraints = { //Create Constraints
     audio: false,
     video: {
       facingMode: {
-        exact: "environment"
+        exact: "user"
       }
     }    
   };
 
-
-  video = createCapture(constraints); // Create the Video Capture
+  if (isMobileDevice) { //Check whether the user is on mobile, if yes...
+    constraints[video][facingMode][exact] = "environment" //Set constraints to use backward facing camera
+  }
+  
+  video = createCapture(constraints); // Create the Video Capture with the constraints
   //video.size(400, 400);
   video.hide(); //Hide the default video capture preview
 
