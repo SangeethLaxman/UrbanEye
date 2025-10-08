@@ -127,20 +127,30 @@ function handleUpload(file) {
 function setup() {
   
 
-  var constraints = { //Create Constraints
-    audio: false,
-    video: {
-      facingMode: {
-        exact: "user"
-      }
-    }    
-  };
+  var constraints;
 
-  if (mobileAndTabletCheck()) { //Check whether the user is on mobile, if yes...
-    console.log("mobile device")
-    constraints[video][facingMode][exact] = "environment" //Set constraints to use backward facing camera
+  if (mobileAndTabletCheck()) { //Check whether the user is on mobile
+    console.log("User is on a Mobile Device")
+
+    constraints = { //Set constraints to use backward facing camera
+      audio: false,
+      video: {
+        facingMode: {
+          exact: "environment"
+        }
+      }    
+    };
+
   } else {
-    console.log("pc device")
+    console.log("User is on Desktop")
+    constraints = { //Set constraints to use backward facing camera
+      audio: false,
+      video: {
+        facingMode: {
+          exact: "user"
+        }
+      }    
+    };
   }
   
   video = createCapture(constraints); // Create the Video Capture with the constraints
