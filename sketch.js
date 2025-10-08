@@ -122,7 +122,17 @@ function handleUpload(file) {
 
 function setup() {
 
-  video = createCapture(VIDEO); // Create the Video Capture
+  var constraints = {
+    audio: false,
+    video: {
+      facingMode: {
+        exact: "environment"
+      }
+    }    
+  };
+
+
+  video = createCapture(constraints); // Create the Video Capture
   //video.size(400, 400);
   video.hide(); //Hide the default video capture preview
 
