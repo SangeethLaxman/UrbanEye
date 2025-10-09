@@ -17,11 +17,9 @@ canvas {
 }
 
 button {
-  font-size:15px
-}
-
-#camText {
+  font-size:15px;
   margin-right: 10px;
+  margin-left:10px;
 }
 
 
@@ -50,5 +48,9 @@ button {
   justify-content: center; 
   align-items: center;
   margin-bottom: 30px;
+}
+
+#imgStuff {
+  margin-bottom:10px;
 }
 
