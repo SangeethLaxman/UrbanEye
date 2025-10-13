@@ -824,6 +824,7 @@ body {
     gap: 1rem;
     cursor: pointer;
     user-select: none;
+    margin-bottom: 20px;
 }
 
 .toggle-switch input[type="checkbox"] {
