@@ -57,17 +57,18 @@
                   <div class="canvas-grid">
                     <div class="canvas-section">
                       <h3 class="canvas-section-title">Live Camera Feed</h3>
-                      <div id="cambounds">
-                        <div hidden id="videoCanvas"></div>
-                      </div>
-                      <div id="camControls" class="camera-controls">
-                        <div class="control-row">
+                      <div class="control-row">
                           <label class="toggle-switch">
                             <input type="checkbox" onclick="toggleCamera()" id="cameraCheckbox">
                             <span class="toggle-slider"></span>
                             <span class="toggle-label">Toggle Camera</span>
                           </label>
                         </div>
+                      <div id="cambounds">
+                        <div hidden id="videoCanvas"></div>
+                      </div>
+                      <div id="camControls" class="camera-controls">
+                        
                         <div class="button-row">
                           <button onClick="take()" id="cameraButton" class="btn btn-primary" disabled>📸 Take Photo</button>
                           <button id="flipCamera" onClick="flipCamera()" class="btn btn-secondary" disabled>🔄 Flip Camera</button>
