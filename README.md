@@ -5,7 +5,7 @@
 
 **Base Concept**: Neighborhood Issue Classifier
 
-## Current Status
+## Website Features
 - Multi-page HTML/CSS/JavaScript website
 - UrbanEye branding with custom logo
 - Fully responsive design with modern styling
