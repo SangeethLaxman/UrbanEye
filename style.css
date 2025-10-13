@@ -791,9 +791,20 @@ body {
 }
 
 #cambounds {
-    width: 100%;
+    width: 400px;
+    height: 400px;
     display: flex;
+    background-color: #000;
     justify-content: center;
+}
+
+#imageCanvas {
+    width: 400px;
+    height: 400px
+}
+
+canvas, #imagecanvas, #cambounds {
+    border-radius:20px
 }
 
 .camera-controls {
