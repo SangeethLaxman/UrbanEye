@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Categories - UrbanEye</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="images/png" href="urban_eye_logo/image_2.png">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link">
+                <img src="urban_eye_logo/image_2.png" alt="UrbanEye Logo" class="logo-img">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">What is NIC?</a></li>
+                <li class="dropdown">
+                    <a href="issues.html" class="nav-link active">Issue Categories ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#water">Water & Drainage</a>
+                        <a href="#road">Road Surface Damage</a>
+                        <a href="#lighting">Lighting & Visibility</a>
+                        <a href="#vegetation">Vegetation Overgrowth</a>
+                        <a href="#structural">Structural Damage</a>
+                        <a href="#waste">Waste Management</a>
+                        <a href="#vandalism">Vandalism & Graffiti</a>
+                        <a href="#traffic">Traffic & Signage</a>
+                        <a href="#amenities">Public Amenities</a>
+                        <a href="#safety">Safety Hazards</a>
+                        <a href="#water-quality">Water Quality</a>
+                        <a href="#noise">Noise Pollution</a>
+                        <a href="#animal">Animal Control</a>
+                        <a href="#abandoned">Abandoned Properties</a>
+                        <a href="#air">Air Quality</a>
+                    </div>
+                </li>
+                <li><a href="authorities.html" class="nav-link">Responsible Authorities</a></li>
+                <li><a href="solutions.html" class="nav-link">Solutions</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="team.html" class="nav-link">Our Team</a></li>
+                <li><a href="camera.html" class="nav-link camera-link">Camera Detection</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="issues-section">
+        <div class="container">
+            <h2 class="section-title">Issue Categories We Detect</h2>
+            <p class="section-description">Our AI model is trained to identify and categorize various neighborhood issues</p>
+            <div class="issues-grid">
+                <div class="issue-card" id="water">
+                    <div class="issue-icon">💧</div>
+                    <h3>Water & Drainage Issues</h3>
+                    <p>Blocked drains, water leaks, flooding, sewage problems, and poor drainage systems affecting neighborhood sanitation.</p>
+                </div>
+                <div class="issue-card" id="road">
+                    <div class="issue-icon">🛣️</div>
+                    <h3>Road Surface Damage</h3>
+                    <p>Potholes, cracks, uneven surfaces, road wear and tear that pose safety hazards to vehicles and pedestrians.</p>
+                </div>
+                <div class="issue-card" id="lighting">
+                    <div class="issue-icon">💡</div>
+                    <h3>Lighting & Visibility Issues</h3>
+                    <p>Broken streetlights, poor illumination, malfunctioning signals affecting safety and visibility in public areas.</p>
+                </div>
+                <div class="issue-card" id="vegetation">
+                    <div class="issue-icon">🌿</div>
+                    <h3>Vegetation Overgrowth</h3>
+                    <p>Overgrown trees, bushes blocking pathways, unmaintained green spaces requiring landscaping attention.</p>
+                </div>
+                <div class="issue-card" id="structural">
+                    <div class="issue-icon">🏗️</div>
+                    <h3>Structural Damage</h3>
+                    <p>Damaged sidewalks, broken curbs, deteriorating public infrastructure requiring immediate repair.</p>
+                </div>
+                <div class="issue-card" id="waste">
+                    <div class="issue-icon">🗑️</div>
+                    <h3>Waste Management</h3>
+                    <p>Overflowing bins, illegal dumping, litter accumulation, and inadequate waste collection services.</p>
+                </div>
+                <div class="issue-card" id="vandalism">
+                    <div class="issue-icon">🎨</div>
+                    <h3>Vandalism & Graffiti</h3>
+                    <p>Graffiti, property defacement, vandalized public property requiring cleanup and restoration.</p>
+                </div>
+                <div class="issue-card" id="traffic">
+                    <div class="issue-icon">🚧</div>
+                    <h3>Traffic & Signage</h3>
+                    <p>Missing signs, damaged traffic signals, faded road markings affecting traffic flow and safety.</p>
+                </div>
+                <div class="issue-card" id="amenities">
+                    <div class="issue-icon">🏞️</div>
+                    <h3>Public Amenities</h3>
+                    <p>Broken benches, damaged playground equipment, malfunctioning public facilities needing maintenance.</p>
+                </div>
+                <div class="issue-card" id="safety">
+                    <div class="issue-icon">⚠️</div>
+                    <h3>Safety Hazards</h3>
+                    <p>Any immediate danger to public safety including exposed wires, unstable structures, or hazardous conditions.</p>
+                </div>
+                <div class="issue-card" id="water-quality">
+                    <div class="issue-icon">🚰</div>
+                    <h3>Water Quality Issues</h3>
+                    <p>Contaminated water sources, discolored water supply, water quality concerns affecting public health.</p>
+                </div>
+                <div class="issue-card" id="noise">
+                    <div class="issue-icon">🔊</div>
+                    <h3>Noise Pollution</h3>
+                    <p>Excessive noise from construction, traffic, or industrial activities disrupting residential peace.</p>
+                </div>
+                <div class="issue-card" id="animal">
+                    <div class="issue-icon">🐕</div>
+                    <h3>Animal Control</h3>
+                    <p>Stray animals, pet waste issues, wildlife intrusion requiring animal control intervention.</p>
+                </div>
+                <div class="issue-card" id="abandoned">
+                    <div class="issue-icon">🏚️</div>
+                    <h3>Abandoned Properties</h3>
+                    <p>Vacant buildings, abandoned structures, unmaintained properties affecting neighborhood safety and aesthetics.</p>
+                </div>
+                <div class="issue-card" id="air">
+                    <div class="issue-icon">🌫️</div>
+                    <h3>Air Quality</h3>
+                    <p>Smoke, dust, odors, and air pollution affecting respiratory health and quality of life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 UrbanEye - Neighborhood Issue Classifier by CodeSynth. Making communities better, one report at a time.</p>
+            <p>🏙️ Smart Insights for Every Street</p>
+        </div>
+    </footer>
+</body>
+</html>
