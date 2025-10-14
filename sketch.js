@@ -184,7 +184,7 @@ function removeImage() { //function to remove the image at current index
         analyzeButton.disabled = true
         removeButton.disabled = true
     }
-
+    addScore()
 }
 
 function addToArray(image) {    //Function to add 'image' to the imageArray
@@ -202,6 +202,16 @@ function addToArray(image) {    //Function to add 'image' to the imageArray
             removeButton.disabled = false;
         }
     }
+}
+
+function addScore() {
+    totalScore = 0
+
+        for (let i=0; i<imageArray.length; i++) {
+            totalScore += imageArray[i]["score"] 
+        }
+
+        totalScoreElement.innerHTML = "Total Score: " + totalScore //Add all points
 }
 
 function take() { //Function to take a picture from webcam
@@ -237,13 +247,7 @@ function getResults(results, error) {
         classifier.classify(imageArray[classificationIndex]["image"], getResults) //Run classify() again with the next image
     } else {
         analyzeButton.disabled = false; // if not, enable button
-        totalScore = 0
-
-        for (let i=0; i<imageArray.length; i++) {
-            totalScore += imageArray[i]["score"] 
-        }
-
-        totalScoreElement.innerHTML = "Total Score: " + totalScore //Add all points
+        addScore()
     }
 
     console.log("Classification Finished! Updated imageArray")
