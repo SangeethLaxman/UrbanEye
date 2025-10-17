@@ -30,6 +30,7 @@ export default async function handler(req, res) {
     ];
 
     if (image) {
+      console.log("image recognizing!")
       contents.unshift({
         inlineData: {
           mimeType: mimeType || "image/png",
@@ -38,6 +39,8 @@ export default async function handler(req, res) {
       });
     }
 
+
+    console.log("generating...")
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents
