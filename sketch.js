@@ -1,6 +1,3 @@
-
-
-//Dictionary to give points for each label
 let scoreReference = {
     "Water & Drainage Issues": -30,
     "Road Surface Damage": -40,
@@ -14,11 +11,13 @@ let scoreReference = {
     "Safe Pedestrians and Traffic Signals": 40
 }
 
+
 let imageArray = [/*
     {
         "image": IMAGE OBJECT HERE,
-        "label": ""
-        "score": 0
+        "label": "",
+        "score": 0,
+        "howTo": ""
     }
     */
  ]
@@ -38,6 +37,94 @@ let analyzeButton = document.getElementById('analyzeButton')
 let removeButton = document.getElementById('removeButton')
 let flipButton = document.getElementById('flipCamera')
 let howToButton = document.getElementById('howToButton')
+let responseArea = document.getElementById('responseArea')
+
+function refreshResponseArea() {
+    responseArea.innerHTML = markdownToHTML(imageArray[index]["howTo"])
+}
+
+function markdownToHTML(md) {
+    let html = md;
+
+  
+    html = html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  
+    html = html.replace(/^###### (.*)$/gm, "<h6>$1</h6>");
+    html = html.replace(/^##### (.*)$/gm, "<h5>$1</h5>");
+    html = html.replace(/^#### (.*)$/gm, "<h4>$1</h4>");
+    html = html.replace(/^### (.*)$/gm, "<h3>$1</h3>");
+    html = html.replace(/^## (.*)$/gm, "<h2>$1</h2>");
+    html = html.replace(/^# (.*)$/gm, "<h1>$1</h1>");
+
+    html = html.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+    html = html.replace(/__(.*?)__/g, "<b>$1</b>");
+
+    html = html.replace(/\*(.*?)\*/g, "<i>$1</i>");
+    html = html.replace(/_(.*?)_/g, "<i>$1</i>");
+
+    html = html.replace(/`(.*?)`/g, "<code>$1</code>");
+
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+    html = html.replace(/^\s*-\s+(.*)$/gm, "<li>$1</li>");
+    html = html.replace(/(<li>.*<\/li>)/g, "<ul>$1</ul>");
+
+    html = html.replace(/^(?!<(h\d|ul|li|pre|code|blockquote|a)).+$/gm, "<p>$&</p>");
+
+    return html;
+}
+
+howToButton.addEventListener('click', async (e) => {
+    if (imageArray[index]["label"]!= "") {
+        e.preventDefault();
+        howToButton.disabled = true
+
+        
+        let tempImage = imageArray[index]['image']
+        let tempCanvas = document.createElement("canvas");
+        tempCanvas.width = tempImage.width;
+        tempCanvas.height = tempImage.height;
+        let ctx = tempCanvas.getContext("2d");
+        let imageData = ctx.createImageData(tempImage.width, tempImage.height);
+        imageData.data.set(tempImage.pixels);
+        ctx.putImageData(imageData, 0, 0);
+
+        convertedImage = tempCanvas.toDataURL("image/png").split(",")[1]
+
+        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image, along with the recognized issue name, mention how the user can help contribute to improving it. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE. "
+        inputAI += "The Recognized Class is " + imageArray[index]["label"]
+        inputAI += " The score subtracted is " + imageArray[index]['score']
+
+        try {
+            responseArea.innerHTML = "Generating...."
+            const response = await fetch("https://urban-eye-nic.vercel.app/api/server", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    image: convertedImage,
+                    mineType: 'image/png',
+                    prompt: inputAI
+                })
+            })
+
+            const data = await response.json();
+            //console.log(data)
+            imageArray[index]["howTo"] = data.response.candidates[0].content.parts[0].text
+
+            refreshResponseArea()
+
+        } catch (error) {
+            responseArea.innerHTML = "Unable To Generate"
+            console.error(error)
+        }
+
+        howToButton.disabled = false
+    }
+})
+
 
 let useFrontCamera = false;
 
@@ -86,6 +173,7 @@ function moveIndex(change) { //function to move the image index by a number
     if (imageArray.length == 0) return;// if the dictionary of images is empty, stop function
     index = (index + change + imageArray.length) % imageArray.length;    //Increase or Decrease index and clamp the index only to the extents of the dictionary
     indexElement.innerHTML = "Photo Number: " +(index+1); //Update Element
+    howToButton.disabled = imageArray[index]['label'] == "" && imageArray[index]['score'] < 0
 }
 
 function draw() {
@@ -193,17 +281,18 @@ function removeImage() { //function to remove the image at current index
 
 function addToArray(image) {    //Function to add 'image' to the imageArray
     if (image instanceof p5.Image) {
-
+        
         imageArray.push({ //Adds a dictionary containing the image, a blank label, and a score of zero, which will be modified during analysis
             "image": image,
             "label": "",
-            "score": 0
+            "score": 0,
+            "howTo": ""
         });
         index = imageArray.length - 1; //Set index to last index (newly added image)
         if (imageArray.length>0) { //If the imageArray is not empty, enable and hide specific elements
             hidden = true
             analyzeButton.disabled = false
-            howToButton.disabled = false
+            refreshResponseArea()
             removeButton.disabled = false;
         }
     }
