@@ -29,9 +29,8 @@ export default async function handler(req, res) {
         model: "gemini-2.5-flash",
         contents: prompt,
       });
-      const text = response.text();
 
-      res.status(200).json({ text });
+      res.status(200).json({ reponse });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Failed to generate content' });
