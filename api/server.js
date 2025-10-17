@@ -24,9 +24,11 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Missing GEMINI_API_KEY' });
       }
 
-      const genAI = new GoogleGenAI(process.env.API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-      const result = await model.generateContent({ contents });
+      const genAI = new GoogleGenAI({apiKey: process.env.API_KEY});
+      const result = await model.generateContent({
+        model: "gemini-2.5-flash", 
+        contents: contents
+      });
       const text = result.response.text();
 
       res.status(200).json({ text });
