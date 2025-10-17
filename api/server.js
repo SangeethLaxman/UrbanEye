@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     try {
       const { contents } = req.body;
 
-      if (!process.env.GEMINI_API_KEY) {
+      if (!process.env.API_KEY) {
         return res.status(500).json({ error: 'Missing GEMINI_API_KEY' });
       }
 
