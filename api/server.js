@@ -1,42 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
+import * as fs from "node:fs";
 
-export default async function handler(req, res) {
-  const allowedOrigins = [
-    'https://sangeethlaxman.github.io',
-    'http://127.0.0.1:5500',
-    'http://localhost:5500'
-  ];
+const ai = new GoogleGenAI({});
+const base64ImageFile = fs.readFileSync("path/to/small-sample.jpg", {
+  encoding: "base64",
+});
 
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+const contents = [
+  {
+    inlineData: {
+      mimeType: "image/jpeg",
+      data: base64ImageFile,
+    },
+  },
+  { text: "Caption this image." },
+];
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
-
-  if (req.method === 'POST') {
-    try {
-      const { prompt } = req.body;
-
-      if (!process.env.API_KEY) {
-        return res.status(500).json({ error: 'Missing GEMINI_API_KEY' });
-      }
-
-      const genAI = new GoogleGenAI({apiKey: process.env.API_KEY});
-      const response = await genAI.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompt,
-      });
-
-      res.status(200).json({ response });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Failed to generate content' });
-      console.error(err)
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-}
+const response = await ai.models.generateContent({
+  model: "gemini-2.5-flash",
+  contents: contents,
+});
+console.log(response.text);
