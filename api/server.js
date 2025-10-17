@@ -46,7 +46,7 @@ export default async function handler(req, res) {
       contents
     });
 
-    res.status(200).json({ text: response.text() });
+    res.status(200).json({ text: response.text });
   } catch (err) {
     console.error("Error generating:", err);
     res.status(500).json({ error: "Failed to generate content" });
