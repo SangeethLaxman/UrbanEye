@@ -6,8 +6,11 @@ const { GoogleGenerativeAI } = require('@google/genai');
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(cors({
+        origin: 'https://sangeethlaxman.github.io' // Or '*' for all origins
+    }));
 app.use(express.json());
+
 
 // Initialize the Google Generative AI client
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
