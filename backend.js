@@ -1,34 +1,37 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const { GoogleGenerativeAI } = require('@google/genai');
+import { GoogleGenerativeAI } from '@google/genai';
 
-const app = express();
-const port = 3000;
+export default async function handler(req, res) {
+  const allowedOrigins = [
+    'https://sangeethlaxman.github.io',
+    'http://127.0.0.1:5500',
+    'http://localhost:5500'
+  ];
 
-app.use(cors({
-        origin: 'https://sangeethlaxman.github.io' // Or '*' for all origins
-    }));
-app.use(express.json());
-
-
-// Initialize the Google Generative AI client
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-app.post('/generate', async (req, res) => {
-  try {
-    const { prompt } = req.body;
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    res.json({ text });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to generate content' });
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
   }
-});
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-app.listen(port, () => {
-  //console.log(`Server is running at http://localhost:${port}`);
-});
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method === 'POST') {
+    try {
+      const { prompt } = req.body;
+      const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      res.status(200).json({ text });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to generate content' });
+    }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
+  }
+}
