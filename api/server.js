@@ -18,18 +18,18 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { contents } = req.body;
+      const { prompt } = req.body;
 
       if (!process.env.API_KEY) {
         return res.status(500).json({ error: 'Missing GEMINI_API_KEY' });
       }
 
       const genAI = new GoogleGenAI({apiKey: process.env.API_KEY});
-      const result = await model.generateContent({
-        model: "gemini-2.5-flash", 
-        contents: contents
+      const response = await genAI.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
       });
-      const text = result.response.text();
+      const text = response.text();
 
       res.status(200).json({ text });
     } catch (err) {
