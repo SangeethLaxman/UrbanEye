@@ -1,3 +1,5 @@
+
+
 //Dictionary to give points for each label
 let scoreReference = {
     "Water & Drainage Issues": -30,
@@ -35,6 +37,7 @@ let totalScoreElement = document.getElementById('totalScoreElement')
 let analyzeButton = document.getElementById('analyzeButton')
 let removeButton = document.getElementById('removeButton')
 let flipButton = document.getElementById('flipCamera')
+let howToButton = document.getElementById('howToButton')
 
 let useFrontCamera = false;
 
@@ -183,6 +186,7 @@ function removeImage() { //function to remove the image at current index
         indexElement.hidden = true
         analyzeButton.disabled = true
         removeButton.disabled = true
+        howToButton.disabled = true
     }
     addScore()
 }
@@ -199,6 +203,7 @@ function addToArray(image) {    //Function to add 'image' to the imageArray
         if (imageArray.length>0) { //If the imageArray is not empty, enable and hide specific elements
             hidden = true
             analyzeButton.disabled = false
+            howToButton.disabled = false
             removeButton.disabled = false;
         }
     }
