@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   try { //This is AI stuff
     const { prompt, image, mimeType } = req.body;
 
-    if (!process.env.GEMINI_API_KEY) {
+    if (!process.env.API_KEY) {
       return res.status(500).json({ error: "Missing API_KEY" });
     }
 
@@ -52,5 +52,5 @@ export default async function handler(req, res) {
     res.status(500).json({ error: "Failed to generate content" });
   }
 
-  
+
 }
