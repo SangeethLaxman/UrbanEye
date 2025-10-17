@@ -87,14 +87,18 @@ howToButton.addEventListener('click', async (e) => {
         tempCanvas.height = tempImage.height;
         let ctx = tempCanvas.getContext("2d");
         let imageData = ctx.createImageData(tempImage.width, tempImage.height);
+        tempImage.loadPixels()
+
+        let imgBitmap = await createImageBitmap(tempImage.canvas || tempImage.elt);
+
         imageData.data.set(tempImage.pixels);
-        ctx.putImageData(imageData, 0, 0);
+        ctx.drawImage(imgBitmap, 0, 0);
 
         convertedImage = tempCanvas.toDataURL("image/png").split(",")[1]
 
-        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image, along with the recognized issue name, mention how the user can help contribute to improving it. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE. "
-        inputAI += "The Recognized Class is " + imageArray[index]["label"]
-        inputAI += " The score subtracted is " + imageArray[index]['score']
+        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image, mention how the user can help contribute to improving it. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE."
+        //inputAI += "The Recognized Class is " + imageArray[index]["label"]
+        //inputAI += " The score subtracted is " + imageArray[index]['score']
 
         try {
             responseArea.innerHTML = "Generating...."
@@ -111,8 +115,8 @@ howToButton.addEventListener('click', async (e) => {
             })
 
             const data = await response.json();
-            //console.log(data)
-            imageArray[index]["howTo"] = data.response.candidates[0].content.parts[0].text
+            console.log(data)
+            imageArray[index]["howTo"] = data.text
 
             refreshResponseArea()
 
@@ -292,7 +296,7 @@ function addToArray(image) {    //Function to add 'image' to the imageArray
         if (imageArray.length>0) { //If the imageArray is not empty, enable and hide specific elements
             hidden = true
             analyzeButton.disabled = false
-            refreshResponseArea()
+            
             removeButton.disabled = false;
         }
     }
@@ -346,6 +350,7 @@ function getResults(results, error) {
 
     console.log("Classification Finished! Updated imageArray")
     analyzeButton.innerHTML = "Analyze"
+    refreshResponseArea()
     console.log(imageArray)
 }
 
