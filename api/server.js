@@ -1,4 +1,4 @@
-const {GoogleGenAI} = require("@google/genai")
+const {GoogleGenerativeAI} = require("@google/genai")
 
 export default async function handler(req, res) {
   const allowedOrigins = [
