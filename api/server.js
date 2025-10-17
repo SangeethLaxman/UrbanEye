@@ -15,20 +15,17 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
-
-  try {
-    const { contents } = req.body;
+  if (req.method === "POST") {
     try {
+      const { contents } = req.body;
       const genAI = new GoogleGenerativeAI(process.env.API_KEY);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       const result = await model.generateContent({ contents });
       const text = result.response.text();
-    } catch (error) {
-      res.status(435).json({error: "api fail"})
+      res.status(200).json({ text });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to generate content' });
     }
-    res.status(200).json({ text });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to generate content' });
   }
 }
