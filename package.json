@@ -12,6 +12,6 @@
   "type":"module",
   "dependencies": {
     "express": "^4.18.2",    
-    "@google/genai": "^1.25.0"
+    "@google/generative-ai": "^1.25.0"
   }
 }
