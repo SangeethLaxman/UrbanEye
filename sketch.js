@@ -38,6 +38,8 @@ let removeButton = document.getElementById('removeButton')
 let flipButton = document.getElementById('flipCamera')
 let howToButton = document.getElementById('howToButton')
 let responseArea = document.getElementById('responseArea')
+let responseLoader = document.getElementById('responseLoader')
+let classLoader = document.getElementById('classLoader')
 
 function refreshResponseArea() {
     responseArea.innerHTML = markdownToHTML(imageArray[index]["howTo"])
@@ -96,11 +98,12 @@ howToButton.addEventListener('click', async (e) => {
 
         convertedImage = tempCanvas.toDataURL("image/png").split(",")[1]
 
-        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image, mention how the user can help contribute to improving it. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE."
-        //inputAI += "The Recognized Class is " + imageArray[index]["label"]
-        //inputAI += " The score subtracted is " + imageArray[index]['score']
-
+        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image along with the recognized class and the score subtracted. mention how the user can help contribute to improving it. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE."
+        inputAI += "The Recognized Class is " + imageArray[index]["label"]
+        inputAI += " The score subtracted is " + imageArray[index]['score']
+        responseLoader.hidden = false
         try {
+            
             responseArea.innerHTML = "Generating...."
             const response = await fetch("https://urban-eye-nic.vercel.app/api/server", {
                 method: "POST",
@@ -119,7 +122,7 @@ howToButton.addEventListener('click', async (e) => {
             imageArray[index]["howTo"] = data.text
 
             refreshResponseArea()
-
+            
         } catch (error) {
             responseArea.innerHTML = "Unable To Generate"
             console.error(error)
@@ -127,6 +130,7 @@ howToButton.addEventListener('click', async (e) => {
 
         howToButton.disabled = false
     }
+    responseLoader.hidden = true
 })
 
 
@@ -177,7 +181,7 @@ function moveIndex(change) { //function to move the image index by a number
     if (imageArray.length == 0) return;// if the dictionary of images is empty, stop function
     index = (index + change + imageArray.length) % imageArray.length;    //Increase or Decrease index and clamp the index only to the extents of the dictionary
     indexElement.innerHTML = "Photo Number: " +(index+1); //Update Element
-    howToButton.disabled = imageArray[index]['label'] == "" && imageArray[index]['score'] < 0
+    howToButton.disabled = imageArray[index]['label'] == "" && imageArray[index]['score'] > 0
 }
 
 function draw() {
@@ -296,7 +300,6 @@ function addToArray(image) {    //Function to add 'image' to the imageArray
         if (imageArray.length>0) { //If the imageArray is not empty, enable and hide specific elements
             hidden = true
             analyzeButton.disabled = false
-            
             removeButton.disabled = false;
         }
     }
@@ -331,7 +334,7 @@ function getResults(results, error) {
     }
 
     imageArray[classificationIndex]["label"] = results[0].label //Modify the label to the recognized label
-
+    howToButton.disabled = false
     try { 
         imageArray[classificationIndex]["score"] = scoreReference[results[0].label] //Modify the score to the respective points
     } catch (error) {
@@ -349,15 +352,17 @@ function getResults(results, error) {
     }
 
     console.log("Classification Finished! Updated imageArray")
-    analyzeButton.innerHTML = "Analyze"
-    refreshResponseArea()
+    analyzeButton.innerHTML = "🔍 Analyze"
+    classLoader.hidden = true
     console.log(imageArray)
 }
 
 function startClassify() {
     console.log("Started Classification...")
+    classLoader.hidden = false
     analyzeButton.innerHTML = "Analyzing..."
     analyzeButton.disabled = true;
+    
     if (imageArray.length>0) {
         classificationIndex = 0
         classifier.classify(imageArray[classificationIndex]["image"], getResults) //classify the first image
