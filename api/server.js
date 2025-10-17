@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
 
-  try {
+  try { //This is AI stuff
     const { prompt, image, mimeType } = req.body;
 
     if (!process.env.GEMINI_API_KEY) {
@@ -51,4 +51,6 @@ export default async function handler(req, res) {
     console.error("Error generating:", err);
     res.status(500).json({ error: "Failed to generate content" });
   }
+
+  
 }
