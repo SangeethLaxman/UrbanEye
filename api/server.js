@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         contents: prompt,
       });
 
-      res.status(200).json({ reponse });
+      res.status(200).json({ response });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Failed to generate content' });
