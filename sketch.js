@@ -283,7 +283,7 @@ function removeImage() { //function to remove the image at current index
         indexElement.hidden = true
         analyzeButton.disabled = true
         removeButton.disabled = true
-        howToButton.disabled = true
+        howToButton.disabled = !imageArray[index]['label'] == "" && imageArray[index]['score'] > 0
     }
     addScore()
 }
@@ -298,6 +298,7 @@ function addToArray(image) {    //Function to add 'image' to the imageArray
             "howTo": ""
         });
         index = imageArray.length - 1; //Set index to last index (newly added image)
+        howToButton.disabled = false
         if (imageArray.length>0) { //If the imageArray is not empty, enable and hide specific elements
             hidden = true
             analyzeButton.disabled = false
