@@ -3,8 +3,8 @@ import { GoogleGenAI } from "@google/genai";
 export default async function handler(req, res) {
   const allowedOrigins = [
     "https://sangeethlaxman.github.io",
-    "http://127.0.0.1:5500",
-    "http://localhost:5500"
+    "https://urbaneye-nic.vercel.app",
+    "https://urbaneye-backend-nic.vercel.app"
   ];
 
   const origin = req.headers.origin;
