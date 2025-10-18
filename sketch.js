@@ -298,7 +298,7 @@ function addToArray(image) {    //Function to add 'image' to the imageArray
             "howTo": ""
         });
         index = imageArray.length - 1; //Set index to last index (newly added image)
-        howToButton.disabled = false
+        howToButton.disabled = true
         if (imageArray.length>0) { //If the imageArray is not empty, enable and hide specific elements
             hidden = true
             analyzeButton.disabled = false
