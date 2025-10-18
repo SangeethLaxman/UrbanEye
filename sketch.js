@@ -335,8 +335,8 @@ function getResults(results, error) {
     }
 
     imageArray[classificationIndex]["label"] = results[0].label //Modify the label to the recognized label
-    console.log(!imageArray[index]['label'] == "" && imageArray[index]['score'] > 0)
-    howToButton.disabled = !imageArray[index]['label'] == "" && imageArray[index]['score'] > 0
+    console.log(!(imageArray[index]['label'] == "" && imageArray[index]['score'] > 0))
+    howToButton.disabled = !(imageArray[index]['label'] == "" && imageArray[index]['score'] > 0)
     try { 
         imageArray[classificationIndex]["score"] = scoreReference[results[0].label] //Modify the score to the respective points
     } catch (error) {
