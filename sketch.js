@@ -105,7 +105,7 @@ howToButton.addEventListener('click', async (e) => {
         try {
             
             responseArea.innerHTML = "Generating...."
-            const response = await fetch("https://urban-eye-nic.vercel.app/api/server", {
+            const response = await fetch("https://urbaneye-backend-nic.vercel.app/api/server", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
