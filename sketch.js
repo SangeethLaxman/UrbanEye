@@ -181,8 +181,8 @@ function moveIndex(change) { //function to move the image index by a number
     if (imageArray.length == 0) return;// if the dictionary of images is empty, stop function
     index = (index + change + imageArray.length) % imageArray.length;    //Increase or Decrease index and clamp the index only to the extents of the dictionary
     indexElement.innerHTML = "Photo Number: " +(index+1); //Update Element
-    console.log(imageArray[index]['label'] == "" && imageArray[index]['score'] > 0)
-    howToButton.disabled = imageArray[index]['label'] == "" && imageArray[index]['score'] > 0
+    console.log(!imageArray[index]['label'] == "" && imageArray[index]['score'] > 0)
+    howToButton.disabled = !imageArray[index]['label'] == "" && imageArray[index]['score'] > 0
 }
 
 function draw() {
