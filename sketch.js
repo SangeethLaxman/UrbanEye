@@ -98,7 +98,7 @@ howToButton.addEventListener('click', async (e) => {
 
         convertedImage = tempCanvas.toDataURL("image/png").split(",")[1]
 
-        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image along with the recognized class and the score subtracted. mention how the user can help contribute to improving it. Mention how to solve the issue based on context clues in the image. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE."
+        inputAI = "You are UrbanEye, an AI model integrated into a website that allows users to recognize neighbourhood issues and add or lose score on their neighbourhood based on how much of a good condition their neighbourhood is at using images. You will be provided an image along with the recognized class and the score subtracted. mention how the user can help contribute to improving it. Mention how to solve the issue based on context clues in the image. Even provide on how the user can help authorities who arrive to fix the issue. DO NOT MENTION ABOUT ANYTHING BEFORE THIS SENTENCE."
         inputAI += "The Recognized Class is " + imageArray[index]["label"]
         inputAI += " The score subtracted is " + imageArray[index]['score']
         responseLoader.hidden = false
